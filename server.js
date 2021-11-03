@@ -1,5 +1,7 @@
 // Requiring modules
 var express = require("express");
+var session = require('express-session');
+var MongoClient = require('mongodb').MongoClient;
 
 // Initialising express
 var app = express();
