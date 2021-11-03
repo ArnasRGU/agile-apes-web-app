@@ -32,12 +32,12 @@
   @media (prefers-color-scheme: light) {
     :root {
       --bg: #212121;
-      --accent-bg: #2B2B2B;
-      --text: #DCDCDC;
-      --text-light: #ABABAB;
-      --border: #666;
-      --accent: #FFB300;
-      --accent-light: #FFECB3;
+      --accent-bg: #f50004;
+      --text: #fff;
+      --text-light: #fff;
+      --border: #f50004;
+      --accent: #f50004;
+      --accent-light: #f50004;
       --code: #F06292;
       --preformatted: #CCC;
       --disabled: #111;
