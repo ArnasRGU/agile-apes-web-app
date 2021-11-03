@@ -6,6 +6,10 @@ var MongoClient = require('mongodb').MongoClient;
 // Initialising express
 var app = express();
 
+// Initialising body parser
+app.use(express.urlencoded({extended: true})); 
+app.use(express.json());   
+
 // Static files
 app.use(express.static("public"));
 
@@ -13,6 +17,30 @@ app.use(express.static("public"));
 app.get("/", function(req, res) {
     res.sendFile("public/html/create_account.html", { root: __dirname });
 });
+
+// Create account routes
+app.post("/createAccountSubmit", function(req, res) {
+
+    var name = req.body.name;
+    var dateOfBirth = req.body.dateOfBirth;
+    var gender = req.body.gender;
+    var emergancyContact = req.body.emergancyContacts;
+    var address = req.body.address;
+    var photoConsent = req.body.photoConsent;
+
+    console.log(
+        "--- create account received ---" + "\n",
+        "Name: " + name + "\n",
+        "Date of Birth: " + dateOfBirth + "\n",
+        "Gender: " + gender + "\n",
+        "Emergancy Contact: " + emergancyContact + "\n",
+        "Address: " + address + "\n",
+        "Photo Consent: ", + photoConsent
+    );
+
+    res.redirect("/login");
+});
+
 
 app.get("/createsession", function(req, res) {
     res.sendFile("public/html/create_session.html", { root: __dirname });
