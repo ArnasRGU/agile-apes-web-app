@@ -22,7 +22,7 @@ app.get("/", function(req, res) {
 app.post("/createAccountSubmit", function(req, res) {
 
     var email = req.body.email;
-    var password = req.body.passowrd;
+    var password = req.body.password;
     var name = req.body.name;
     var dateOfBirth = req.body.dateOfBirth;
     var gender = req.body.gender;
