@@ -24,7 +24,7 @@ app.post("/createAccountSubmit", function(req, res) {
     var name = req.body.name;
     var dateOfBirth = req.body.dateOfBirth;
     var gender = req.body.gender;
-    var emergancyContact = req.body.emergancyContacts;
+    var emergencyContact = req.body.emergencyContacts;
     var address = req.body.address;
     var photoConsent = req.body.photoConsent;
 
@@ -33,7 +33,7 @@ app.post("/createAccountSubmit", function(req, res) {
         "Name: " + name + "\n",
         "Date of Birth: " + dateOfBirth + "\n",
         "Gender: " + gender + "\n",
-        "Emergancy Contact: " + emergancyContact + "\n",
+        "Emergency Contact: " + emergencyContact + "\n",
         "Address: " + address + "\n",
         "Photo Consent: ", + photoConsent
     );
