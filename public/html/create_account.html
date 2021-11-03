@@ -4,34 +4,34 @@
         <title>Create Account</title>
         <meta name="viewport" content="width=device-width; initial-scale=1.0;">
         <link rel="stylesheet" href="./css/simple.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
         <script src="../js/create_account.js"></script>
     </head>
 
     <body>
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
         <header><h1>Dennis Law Sport Attendr</h1></header>
         <main>
             <h1>Create Account</h1>
-            <form>
+            <form action="/createAccountSubmit" method="POST">
                 <p>
-                    <label>Username</label><br>
+                    <label>Username:</label><br>
                     <input type="text">
                 </p>
                 <p>
-                    <label>Password</label><br>
+                    <label>Password:</label><br>
                     <input type="password">
                 </p>
                 <p>
-                    <label>Name</label><br>
-                    <input type="text">
+                    <label>Name:</label><br>
+                    <input type="text" name="name">
                 </p>
                 <p>
-                    <label>Date of Birth</label><br>
-                    <input type="date">
+                    <label>Date of Birth:</label><br>
+                    <input type="date" name="dateOfBirth">
                 </p>
                 <p>
                     <label>Gender</label><br>
-                    <select>
+                    <select name="gender">
                         <option value="1">Male</option>
                         <option value="2">Female</option>
                         <option value="3">Other</option>
@@ -40,15 +40,15 @@
                 </p>
                 <p>
                     <label>Emergency Contact</label><br>
-                    <textarea></textarea>
+                    <textarea name="emergancyContacts"></textarea>
                 </p>
                 <p>
                     <label>Address</label><br>
-                    <textarea></textarea>
+                    <textarea name="address"></textarea>
                 </p>
                 <p>
                     <label>
-                        <input type="checkbox">
+                        <input type="checkbox" name="photoConsent">
                         Photo Consent
                     </label>
                     <br>
