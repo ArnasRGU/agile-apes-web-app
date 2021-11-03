@@ -39,7 +39,7 @@ app.post("/createAccountSubmit", function(req, res) {
         "Gender: " + gender + "\n",
         "Emergency Contact: " + emergencyContact + "\n",
         "Address: " + address + "\n",
-        "Photo Consent: ", + photoConsent
+        "Photo Consent: " + photoConsent
     );
 
     res.redirect("/login");
