@@ -21,6 +21,8 @@ app.get("/", function(req, res) {
 // Create account routes
 app.post("/createAccountSubmit", function(req, res) {
 
+    var email = req.body.email;
+    var password = req.body.passowrd;
     var name = req.body.name;
     var dateOfBirth = req.body.dateOfBirth;
     var gender = req.body.gender;
@@ -30,6 +32,8 @@ app.post("/createAccountSubmit", function(req, res) {
 
     console.log(
         "--- create account received ---" + "\n",
+        "Email: " + email + "\n",
+        "Password: " + password + "\n",
         "Name: " + name + "\n",
         "Date of Birth: " + dateOfBirth + "\n",
         "Gender: " + gender + "\n",
