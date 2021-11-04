@@ -15,23 +15,23 @@
             <form action="/createAccountSubmit" method="POST">
                 <p>
                     <label>Username:</label><br>
-                    <input type="text" name="email">
+                    <input type="text" name="email" required>
                 </p>
                 <p>
                     <label>Password:</label><br>
-                    <input type="password" name="password">
+                    <input type="password" name="password" required>
                 </p>
                 <p>
                     <label>Name:</label><br>
-                    <input type="text" name="name">
+                    <input type="text" name="name" required>
                 </p>
                 <p>
                     <label>Date of Birth:</label><br>
-                    <input type="date" name="dateOfBirth">
+                    <input type="date" name="dateOfBirth" required>
                 </p>
                 <p>
                     <label>Gender</label><br>
-                    <select name="gender">
+                    <select name="gender" required>
                         <option value="Male">Male</option>
                         <option value="Femlae">Female</option>
                         <option value="Other">Other</option>
@@ -40,11 +40,11 @@
                 </p>
                 <p>
                     <label>Emergency Contact</label><br>
-                    <textarea name="emergencyContacts"></textarea>
+                    <textarea name="emergencyContacts" required></textarea>
                 </p>
                 <p>
-                    <label>Address</label><br>
-                    <textarea name="address"></textarea>
+                    <label>Postcode</label><br>
+                    <input name="postcode" required>
                 </p>
                 <p>
                     <label>
