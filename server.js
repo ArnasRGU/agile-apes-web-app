@@ -71,7 +71,7 @@ app.get("/sessionadmin", function(req, res) {
 });
 
 app.get("/sessionpages", function(req, res) {
-    res.sendFile("public/html/session_pages.html", { root: __dirname });
+    res.sendFile("public/html/session_page.html", { root: __dirname });
 });
 
 app.get("/viewprofiles", function(req, res) {
