@@ -35,9 +35,12 @@ app.use(express.json());
 // Static files
 app.use(express.static("public"));
 
+// Setting up the session
+app.use(session({ secret: 'agileApesSecret' }));
+
 // Serving html page
 app.get("/", function(req, res) {
-    res.sendFile("public/html/create_account.html", { root: __dirname });
+    res.sendFile("public/html/login.html", { root: __dirname });
 });
 
 // Create account routes
@@ -112,6 +115,39 @@ app.get("/login", function(req, res) {
     res.sendFile("public/html/login.html", { root: __dirname });
 });
 
+app.post("/loginSubmit", function(req, res) {
+
+    // Receiving inputs from the form
+    var email = req.body.email;
+    var password = req.body.password;
+
+    db.collection("profiles").findOne({email:email}, function(err, result) {
+        // Handle error
+        if (err) throw err;
+
+        // If a profile isnt found
+        if (!result) {
+            res.redirect("/login");
+            return;
+        };
+
+        // Check the password
+        if (result.password == password) {
+            req.session.loggedin = true;
+            req.session.username = email;
+
+            res.redirect("/participantSession");
+        } else {
+            res.redirect("/login");
+        };
+    });
+});
+
+// Participant session page
+app.get("/participantSession", function(req, res) {
+    res.sendFile("public/html/session_page.html", { root: __dirname });
+});
+
 app.get("/createsession", function(req, res) {
     res.sendFile("public/html/create_session.html", { root: __dirname });
 });
@@ -130,10 +166,6 @@ app.get("/navpage", function(req, res) {
 
 app.get("/sessionadmin", function(req, res) {
     res.sendFile("public/html/session_admin.html", { root: __dirname });
-});
-
-app.get("/sessionpages", function(req, res) {
-    res.sendFile("public/html/session_page.html", { root: __dirname });
 });
 
 app.get("/viewprofiles", function(req, res) {

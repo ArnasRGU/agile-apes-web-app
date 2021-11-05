@@ -9,15 +9,15 @@
         <header><h1>Dennis Law Sport Attendr</h1></header>
         <main>
             <h1>Log In</h1>
-            <form>
+            <form action="/loginSubmit" method="POST">
                 <p>
                     <label>Email</label><br>
-                    <input type="text">
+                    <input type="text" name="email" required>
                 </p>
                 
                 <p>
                     <label>Password</label><br>
-                    <input type="password">
+                    <input type="password" name="password" required>
                 </p>
                 <input type="submit" value="Log In">
             </form>
