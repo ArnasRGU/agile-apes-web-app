@@ -36,7 +36,7 @@ app.use(express.json());
 app.use(express.static("public"));
 
 // Setting up the session
-app.use(session({ secret: 'agileApesSecret' }));
+app.use(session({ secret: 'agileApesSecret', resave: false, saveUninitialized: false}));
 
 // Serving html page
 app.get("/", function (req, res) {
@@ -124,7 +124,7 @@ app.post("/loginSubmit", function (req, res) {
         // Handle error
         if (err) throw err;
 
-        // If a profile isnt found
+        // If a profile isn't found
         if (!result) {
             res.redirect("/login");
             return;
@@ -148,9 +148,9 @@ app.get("/participantSession", function (req, res) {
 });
 
 // Logout route
-app.post("/logout", function(res, req) {
-    res.session.loggedin == false;
-    res.redirect("login");
+app.post("/logout", function(req, res) {
+    req.session.loggedin = false;
+    res.redirect("/login");
 });
 
 app.get("/createsession", function (req, res) {
