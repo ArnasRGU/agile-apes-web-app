@@ -142,9 +142,15 @@ app.post("/loginSubmit", function (req, res) {
     });
 });
 
-// Participant session page
+// Participant session page route
 app.get("/participantSession", function (req, res) {
     res.sendFile("public/html/session_page.html", { root: __dirname });
+});
+
+// Logout route
+app.post("/logout", function(res, req) {
+    res.session.loggedin == false;
+    res.redirect("login");
 });
 
 app.get("/createsession", function (req, res) {
