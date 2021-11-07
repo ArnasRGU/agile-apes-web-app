@@ -199,6 +199,10 @@ app.get("/createsession", function (req, res) {
 });
 
 app.get("/editaccount", function (req, res) {
+    if (!req.session.loggedin) {
+        res.redirect("/login")
+        return
+    }
     res.sendFile("public/html/edit_account.html", { root: __dirname });
 });
 
