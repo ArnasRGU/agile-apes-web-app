@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <%- include('../partials/head') %>
+    </head>
+
+    <body>
+        <header>
+            <%- include('../partials/header') %>
+        </header>
+        <section>
+            <h1>Edit Account</h1>
+            <form action="/editAccountSubmit" method="POST">
+                <p>
+                    <label>Username</label><br>
+                    <input type="text" name="email">
+                </p>
+                <p>
+                    <label>Password</label><br>
+                    <input type="password" name="password">
+                </p>
+                <p>
+                    <label>Name</label><br>
+                    <input type="text" name="name">
+                </p>
+                <p>
+                    <label>Date of Birth</label><br>
+                    <input type="date" name="dateOfBirth">
+                </p>
+                <p>
+                    <label>Gender</label><br>
+                    <select name="gender">
+                        <option value="1">Male</option>
+                        <option value="2">Female</option>
+                        <option value="3">Other</option>
+                        <option value="4">Prefer Not To Say</option>
+                    </select>
+                </p>
+                <p>
+                    <label>Emergency Contact</label><br>
+                    <textarea name="emergencyContacts"></textarea>
+                </p>
+                <p>
+                    <label>Postcode</label><br>
+                    <input name="postcode">
+                </p>
+                <p>
+                    <label>
+                        <input type="checkbox" name="photoConsent">
+                        Photo Consent
+                    </label>
+                    <br>
+                </p>
+                <input type="submit" value="Save Changes">
+            </form>
+        </section>
+    </body>
+</html>
