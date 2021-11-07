@@ -9,26 +9,26 @@
         <header><h1>Dennis Law Sport Attendr</h1></header>
         <section>
             <h1>Edit Account</h1>
-            <form>
+            <form action="/editAccountSubmit" method="POST">
                 <p>
                     <label>Username</label><br>
-                    <input type="text">
+                    <input type="text" name="email">
                 </p>
                 <p>
                     <label>Password</label><br>
-                    <input type="password">
+                    <input type="password" name="password">
                 </p>
                 <p>
                     <label>Name</label><br>
-                    <input type="text">
+                    <input type="text" name="name">
                 </p>
                 <p>
                     <label>Date of Birth</label><br>
-                    <input type="date">
+                    <input type="date" name="dateOfBirth">
                 </p>
                 <p>
                     <label>Gender</label><br>
-                    <select>
+                    <select name="gender">
                         <option value="1">Male</option>
                         <option value="2">Female</option>
                         <option value="3">Other</option>
@@ -37,15 +37,15 @@
                 </p>
                 <p>
                     <label>Emergency Contact</label><br>
-                    <textarea></textarea>
+                    <textarea name="emergencyContacts"></textarea>
                 </p>
                 <p>
-                    <label>Address</label><br>
-                    <textarea></textarea>
+                    <label>Postcode</label><br>
+                    <input name="postcode">
                 </p>
                 <p>
                     <label>
-                        <input type="checkbox">
+                        <input type="checkbox" name="photoConsent">
                         Photo Consent
                     </label>
                     <br>

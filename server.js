@@ -106,7 +106,7 @@ app.post("/createAccountSubmit", function (req, res) {
         };
     });
 
-    res.redirect("/createAccount");
+    res.redirect("/login");
 });
 
 // Login page routes
@@ -142,6 +142,42 @@ app.post("/loginSubmit", function (req, res) {
     });
 });
 
+
+app.post("/editAccountSubmit", function(req, res) {
+    
+    console.log(req.body);
+
+    let query = {email:req.session.username}
+    newVals = {$set:{}}
+
+    if (req.body.email != "") newVals.$set.email = req.body.email
+    if (req.body.password != "") newVals.$set.password = req.body.password
+    if (req.body.name != "") newVals.$set.name = req.body.name
+    if (req.body.dateOfBirth != "") newVals.$set.dateOfBirth = req.body.dateOfBirth
+    if (req.body.gender != "") newVals.$set.gender = req.body.gender
+    if (req.body.emergencyContact != "") newVals.$set.emergencyContact = req.body.emergencyContact
+    if (req.body.postcode != "") newVals.$set.postcode = req.body.postcode
+    
+
+    db.collection("profiles").updateOne(query, newVals, function (err,res) {
+        if (err) throw err;
+
+        console.log(req.session.username + " details have been updated");
+        req.session.username = req.body.email;
+    })
+    res.redirect("/participantSession")
+});
+
+
+//lets you get user info. remove or edit this after development so that anyone cant just muck about
+app.get("/getUser",function (req,res) {
+    let email = req.query.email;
+    db.collection("profiles").findOne({email:email},function (err,res2) {
+        if (err) throw err;
+        res.send(JSON.stringify(res2));
+    })
+})
+
 // Participant session page route
 app.get("/participantSession", function (req, res) {
     res.sendFile("public/html/session_page.html", { root: __dirname });
@@ -149,6 +185,11 @@ app.get("/participantSession", function (req, res) {
 
 // Logout route
 app.post("/logout", function(req, res) {
+    req.session.loggedin = false;
+    res.redirect("/login");
+});
+
+app.get("/logout", function(req, res) {
     req.session.loggedin = false;
     res.redirect("/login");
 });
