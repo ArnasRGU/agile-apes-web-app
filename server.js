@@ -142,6 +142,28 @@ app.post("/loginSubmit", function (req, res) {
     });
 });
 
+// Lets you get user info. remove or edit this after development so that anyone cant just muck about.
+app.get("/getUser",function (req,res) {
+    let email = req.query.email;
+    db.collection("profiles").findOne({email:email},function (err,res2) {
+        if (err) throw err;
+        res.send(JSON.stringify(res2));
+    })
+})
+
+// Participant session page route
+app.get("/participantSession", function (req, res) {
+    res.sendFile("public/html/session_page.html", { root: __dirname });
+});
+
+// Participant edit account route
+app.get("/editaccount", function (req, res) {
+    if (!req.session.loggedin) {
+        res.redirect("/login")
+        return
+    }
+    res.sendFile("public/html/edit_account.html", { root: __dirname });
+});
 
 app.post("/editAccountSubmit", function(req, res) {
     
@@ -168,27 +190,7 @@ app.post("/editAccountSubmit", function(req, res) {
     res.redirect("/participantSession")
 });
 
-
-//lets you get user info. remove or edit this after development so that anyone cant just muck about
-app.get("/getUser",function (req,res) {
-    let email = req.query.email;
-    db.collection("profiles").findOne({email:email},function (err,res2) {
-        if (err) throw err;
-        res.send(JSON.stringify(res2));
-    })
-})
-
-// Participant session page route
-app.get("/participantSession", function (req, res) {
-    res.sendFile("public/html/session_page.html", { root: __dirname });
-});
-
 // Logout route
-app.post("/logout", function(req, res) {
-    req.session.loggedin = false;
-    res.redirect("/login");
-});
-
 app.get("/logout", function(req, res) {
     req.session.loggedin = false;
     res.redirect("/login");
@@ -196,14 +198,6 @@ app.get("/logout", function(req, res) {
 
 app.get("/createsession", function (req, res) {
     res.sendFile("public/html/create_session.html", { root: __dirname });
-});
-
-app.get("/editaccount", function (req, res) {
-    if (!req.session.loggedin) {
-        res.redirect("/login")
-        return
-    }
-    res.sendFile("public/html/edit_account.html", { root: __dirname });
 });
 
 app.get("/editsession", function (req, res) {
