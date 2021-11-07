@@ -486,4 +486,11 @@
     margin: 0;
     padding: 0;
   }
+
+  section{
+    border:2px solid #f50004;
+    padding:.5rem;
+    margin:.5rem;
+    border-radius: 5px;
+  }
   
