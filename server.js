@@ -27,6 +27,8 @@ MongoClient.connect(mongoUrl, function (err, database) {
     console.log('Server started at http://localhost:' + 8080);
 });
 
+//Setting up ejs
+app.set('view engine', 'ejs');
 
 // Initialising body parser
 app.use(express.urlencoded({ extended: true }));
@@ -40,12 +42,12 @@ app.use(session({ secret: 'agileApesSecret', resave: false, saveUninitialized: f
 
 // Serving html page
 app.get("/", function (req, res) {
-    res.sendFile("public/html/login.html", { root: __dirname });
+    res.render('pages/login', {title: 'Log In'});
 });
 
 // Create account routes
 app.get("/createAccount", function (req, res) {
-    res.sendFile("public/html/create_account.html", { root: __dirname })
+    res.render('pages/create_account', {title: 'Create Account'});
 });
 
 app.post("/createAccountSubmit", function (req, res) {
@@ -111,7 +113,8 @@ app.post("/createAccountSubmit", function (req, res) {
 
 // Login page routes
 app.get("/login", function (req, res) {
-    res.sendFile("public/html/login.html", { root: __dirname });
+    //res.sendFile("public/html/login.html", { root: __dirname });
+    res.render('pages/login', {title: 'Log In'});
 });
 
 app.post("/loginSubmit", function (req, res) {
@@ -135,7 +138,7 @@ app.post("/loginSubmit", function (req, res) {
             req.session.loggedin = true;
             req.session.username = email;
 
-            res.redirect("/participantSession");
+            res.redirect("/sessionparticipant");
         } else {
             res.redirect("/login");
         };
@@ -165,7 +168,7 @@ app.post("/editAccountSubmit", function(req, res) {
         console.log(req.session.username + " details have been updated");
         req.session.username = req.body.email;
     })
-    res.redirect("/participantSession")
+    res.redirect("/sessionparticipant")
 });
 
 
@@ -179,8 +182,8 @@ app.get("/getUser",function (req,res) {
 })
 
 // Participant session page route
-app.get("/participantSession", function (req, res) {
-    res.sendFile("public/html/session_page.html", { root: __dirname });
+app.get("/sessionparticipant", function (req, res) {
+    res.render('pages/session_participant', {title: 'View Sessions'});
 });
 
 // Logout route
@@ -195,7 +198,7 @@ app.get("/logout", function(req, res) {
 });
 
 app.get("/createsession", function (req, res) {
-    res.sendFile("public/html/create_session.html", { root: __dirname });
+    res.render('pages/create_session', {title: 'Create Session'});
 });
 
 app.get("/editaccount", function (req, res) {
@@ -203,21 +206,21 @@ app.get("/editaccount", function (req, res) {
         res.redirect("/login")
         return
     }
-    res.sendFile("public/html/edit_account.html", { root: __dirname });
+    res.render('pages/edit_account', {title: 'Edit Account'});
 });
 
 app.get("/editsession", function (req, res) {
-    res.sendFile("public/html/edit_session.html", { root: __dirname });
+    res.render('pages/edit_session', {title: 'Edit Session'});
 });
 
 app.get("/navpage", function (req, res) {
-    res.sendFile("public/html/navigation_page.html", { root: __dirname });
+    res.render('pages/navigation_page', {title: 'Admin Navigation'});
 });
 
 app.get("/sessionadmin", function (req, res) {
-    res.sendFile("public/html/session_admin.html", { root: __dirname });
+    res.render('pages/session_admin', {title: 'View Sessions'});
 });
 
 app.get("/viewprofiles", function (req, res) {
-    res.sendFile("public/html/view_profiles.html", { root: __dirname });
+    res.render('pages/view_profiles', {title: 'View Profiles'});
 });

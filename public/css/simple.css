@@ -234,7 +234,7 @@
   input[type="radio"]:enabled:hover{
     opacity: .8;
   }
-  
+
   /* Format the expanding box */
   details {
     background: var(--accent-bg);
