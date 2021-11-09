@@ -156,7 +156,7 @@ app.get("/getUser",function (req,res) {
 
 // Participant session page route
 app.get("/participantSession", function (req, res) {
-    res.sendFile("public/html/session_page.html", { root: __dirname });
+    res.render('pages/session_participant', {title: 'View Sessions'});
 });
 
 // Participant edit account routes
