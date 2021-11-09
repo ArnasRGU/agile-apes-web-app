@@ -164,8 +164,28 @@ app.get("/editaccount", function (req, res) {
     if (!req.session.loggedin) {
         res.redirect("/login");
         return;
+    } else {
+        let query = {email:req.session.username};
+        db.collection("profiles").findOne(query,function (err,result) {
+            if (err) throw err;
+            console.log(result);
+            
+            info = {
+                email:result.email,
+                password:result.password,
+                name: result.name,
+                dateOfBirth: result.dateOfBirth,
+                gender: result.gender,
+                emergencyContact: result.emergencyContact,
+                postcode: result.postcode,
+                photoConsent: result.photoConsent?"checked":"",
+                title: "Edit Account"
+            }
+
+            res.render("pages/edit_account",info)
+        })
     }
-    res.sendFile("public/html/edit_account.html", { root: __dirname });
+    //res.sendFile("public/html/edit_account.html", { root: __dirname });
 });
 
 app.post("/editAccountSubmit", function(req, res) {

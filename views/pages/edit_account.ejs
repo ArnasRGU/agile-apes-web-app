@@ -13,19 +13,19 @@
             <form action="/editAccountSubmit" method="POST">
                 <p>
                     <label>Username</label><br>
-                    <input type="text" name="email">
+                    <input type="text" name="email" value="<%- email %>">
                 </p>
                 <p>
                     <label>Password</label><br>
-                    <input type="password" name="password">
+                    <input type="password" name="password" value="<%- password %>">
                 </p>
                 <p>
                     <label>Name</label><br>
-                    <input type="text" name="name">
+                    <input type="text" name="name" value="<%- name %>">
                 </p>
                 <p>
                     <label>Date of Birth</label><br>
-                    <input type="date" name="dateOfBirth">
+                    <input type="date" name="dateOfBirth" value="<%- dateOfBirth %>">
                 </p>
                 <p>
                     <label>Gender</label><br>
@@ -38,15 +38,15 @@
                 </p>
                 <p>
                     <label>Emergency Contact</label><br>
-                    <textarea name="emergencyContacts"></textarea>
+                    <textarea name="emergencyContact" value=""><%- emergencyContact %></textarea>
                 </p>
                 <p>
                     <label>Postcode</label><br>
-                    <input name="postcode">
+                    <input name="postcode" value="<%- postcode -%>">
                 </p>
                 <p>
                     <label>
-                        <input type="checkbox" name="photoConsent">
+                        <input type="checkbox" name="photoConsent" <%- photoConsent %>>
                         Photo Consent
                     </label>
                     <br>
