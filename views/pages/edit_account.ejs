@@ -13,19 +13,19 @@
             <form action="/editAccountSubmit" method="POST">
                 <p>
                     <label>Username</label><br>
-                    <input type="text" name="email" value="<%- email %>">
+                    <input type="text" name="email" value="<%- email %>" required>
                 </p>
                 <p>
                     <label>Password</label><br>
-                    <input type="password" name="password" value="<%- password %>">
+                    <input type="password" name="password" value="<%- password %>" required>
                 </p>
                 <p>
                     <label>Name</label><br>
-                    <input type="text" name="name" value="<%- name %>">
+                    <input type="text" name="name" value="<%- name %>" required>
                 </p>
                 <p>
                     <label>Date of Birth</label><br>
-                    <input type="date" name="dateOfBirth" value="<%- dateOfBirth %>">
+                    <input type="date" name="dateOfBirth" value="<%- dateOfBirth %>" required>
                 </p>
                 <p>
                     <label>Gender</label><br>
@@ -38,11 +38,13 @@
                 </p>
                 <p>
                     <label>Emergency Contact</label><br>
-                    <textarea name="emergencyContact" value=""><%- emergencyContact %></textarea>
+                    <input name="emergencyContactName" value="" placeholder="Name" required>
+                    <input name="emergencyContactNumber" value="" placeholder="Phone Number" required>
+                    
                 </p>
                 <p>
                     <label>Postcode</label><br>
-                    <input name="postcode" value="<%- postcode -%>">
+                    <input name="postcode" value="<%- postcode -%>" required>
                 </p>
                 <p>
                     <label>
