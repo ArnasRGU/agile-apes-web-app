@@ -295,9 +295,7 @@ app.get("/participantAttend", function(req,res){
 })
 
 app.post("/participantAttendSubmit", function(req,res){
-    db.collection("sessions").updateOne({
-        
-    })
+    db.collection("sessions").updateOne({})
 })
 
 // Admin session routes
@@ -324,9 +322,14 @@ app.post("/createSessionSubmit",function(req,res) {
         day:req.body.day
     },function (err,result) {
         if (err) throw err;
-        res.redirect("/sessionadmin");
+        res.render("pages/session_admin", {title: "View Sessions", sessions:result});
     });
+    res.render("pages/session_admin", {title: "View Sessions", sessions:result});
 });
+
+app.get("/editSessionAdmin"), function(req, res) {
+    
+};
 
 app.post("editSessionAdminSubmit", function(req, res) {
     query = {name:req.body.oldName}
