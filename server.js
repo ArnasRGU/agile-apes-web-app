@@ -264,10 +264,10 @@ app.post("/editAccountSubmit", function(req, res) {
 
     db.collection("profiles").findOne(query,function (err,result) {
         if (err) throw err;
-        console.log(req.session.email);
 
+        // Redirect the user depending on wether they are an admin or not
         if (result.admin) {
-            res.render('pages/navigation_page', {title: 'Admin Navigation'});
+            res.redirect('/navPage');
         } else {
             res.redirect("/sessionparticipant")
         }; 
