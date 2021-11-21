@@ -19,7 +19,13 @@ MongoClient.connect(mongoUrl, function (err, database) {
     //Creating the profiles collection
     db.createCollection("profiles", function (err2, res) {
         // If the collection is already created
-        if (err2) { console.log("\n-- Profiles collection already created --") };
+        if (err2) { console.log("\nProfiles collection already created moving on...") };
+    });
+
+    // Creating the sessions collection
+    db.createCollection("sessions", function (err3, res2) {
+        // If the collection is already created
+        if (err3) { console.log("Sessions collection already created, its ok I didn't want to make it anyway ;( moving on...")};
     });
 
     // Setting the web server to listen in on 8080
@@ -57,7 +63,8 @@ app.post("/createAccountSubmit", function (req, res) {
     var name = req.body.name;
     var dateOfBirth = req.body.dateOfBirth;
     var gender = req.body.gender;
-    var emergencyContact = req.body.emergencyContacts;
+    var emergencyContactName = req.body.emergencyContactName;
+    var emergencyContactNumber = req.body.emergencyContactNumber;
     var postcode = req.body.postcode;
     var photoConsent = req.body.photoConsent;
 
@@ -75,7 +82,8 @@ app.post("/createAccountSubmit", function (req, res) {
         "Name: " + name + "\n",
         "Date of Birth: " + dateOfBirth + "\n",
         "Gender: " + gender + "\n",
-        "Emergency Contact: " + emergencyContact + "\n",
+        "Emergency Contact Name: " + emergencyContactName + "\n",
+        "Emergency Contact Number: " + emergencyContactNumber + "\n",
         "Postcode: " + postcode + "\n",
         "Photo Consent: " + photoConsent
     );
@@ -94,7 +102,8 @@ app.post("/createAccountSubmit", function (req, res) {
                 name: name,
                 dateOfBirth: dateOfBirth,
                 gender: gender,
-                emergencyContact: emergencyContact,
+                emergencyContactName: emergencyContactName,
+                emergencyContactNumber: emergencyContactNumber,
                 postcode: postcode,
                 photoConsent: photoConsent
             }, function (err2, result2) {
@@ -102,9 +111,9 @@ app.post("/createAccountSubmit", function (req, res) {
                 if (err2) throw err2;
             });
 
-            console.log("-- Added new user to the database --")
+            console.log("Added new user to the database...")
         } else {
-            console.log("-- Account already created! --");
+            console.log("Account already created...");
         };
     });
 
@@ -176,7 +185,8 @@ app.get("/editaccount", function (req, res) {
                 name: result.name,
                 dateOfBirth: result.dateOfBirth,
                 gender: result.gender,
-                emergencyContact: result.emergencyContact,
+                emergencyContactName: result.emergencyContactName,
+                emergencyContactNumber: result.emergencyContactNumber,
                 postcode: result.postcode,
                 photoConsent: result.photoConsent?"checked":"",
                 title: "Edit Account"
@@ -200,10 +210,10 @@ app.post("/editAccountSubmit", function(req, res) {
     if (req.body.name != "") newVals.$set.name = req.body.name
     if (req.body.dateOfBirth != "") newVals.$set.dateOfBirth = req.body.dateOfBirth
     if (req.body.gender != "") newVals.$set.gender = req.body.gender
-    if (req.body.emergencyContact != "") newVals.$set.emergencyContact = req.body.emergencyContact
+    if (req.body.emergencyContactName != "") newVals.$set.emergencyContactName = req.body.emergencyContactName
+    if (req.body.emergencyContactNumber != "") newVals.$set.emergencyContactNumber = req.body.emergencyContactNumber
     if (req.body.postcode != "") newVals.$set.postcode = req.body.postcode
     
-
     db.collection("profiles").updateOne(query, newVals, function (err,res) {
         if (err) throw err;
 
