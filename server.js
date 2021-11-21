@@ -209,14 +209,17 @@ app.get("/participantSession", function (req, res) {
 
 // Participant edit account routes
 app.get("/editaccount", function (req, res) {
+    // Checking if they are logged in or not
     if (!req.session.loggedin) {
         res.redirect("/login");
         return;
+
     } else {
+        // Getting logged in users email
         let query = {email:req.session.email};
+
         db.collection("profiles").findOne(query,function (err,result) {
             if (err) throw err;
-            console.log(result);
             
             info = {
                 email:result.email,
@@ -239,8 +242,6 @@ app.get("/editaccount", function (req, res) {
 
 app.post("/editAccountSubmit", function(req, res) {
     
-    console.log(req.body);
-
     let query = {email:req.session.email}
     newVals = {$set:{}}
 
@@ -260,8 +261,7 @@ app.post("/editAccountSubmit", function(req, res) {
         req.session.email = req.body.email;
     })
 
-    // Check if the user is an admin
-
+    // Check if the user is an admin or not
     db.collection("profiles").findOne(query,function (err,result) {
         if (err) throw err;
 
@@ -295,27 +295,30 @@ app.get("/logout", function(req, res) {
     res.redirect("/login");
 });
 
-app.get("/createsession", function (req, res) {
+app.get("/createSession", function (req, res) {
     res.render('pages/create_session', {title: 'Create Session'});
 });
 
 app.post("/createSessionSubmit",function(req,res) {
+    // Creating a one off session
     db.collection('sessions').insertOne({
         name:req.body.name,
         details:req.body.details,
         location:req.body.location,
-        time:req.body.time,
-        date:req.body.date
+        startTime:req.body.startTime,
+        endTime:req.body.endTime,
+        day:req.body.day
     },function (err,result) {
         if (err) throw err;
-        res.redirect("/sessionadmin")
-    })
-
+        res.redirect("/sessionadmin");
+    });
 });
 
 app.get("/editsession", function (req, res) {
     res.render('pages/edit_session', {title: 'Edit Session'});
 });
+
+app.post("/ed")
 
 app.get("/navPage", function (req, res) {
     res.render('pages/navigation_page', {title: 'Admin Navigation'});
