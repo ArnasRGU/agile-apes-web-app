@@ -301,6 +301,49 @@ app.post("/createSessionSubmit",function(req,res) {
 
 });
 
+app.get("/editAccountAdmin",function (req,res) {
+    if (!req.session.loggedin) {
+        res.redirect("/")
+        return
+    }
+    db.collection("profiles").findOne({email:req.session.username},function(err,result) {
+        if (err) throw err;
+        if (!result.admin) {
+            res.redirect("/")
+            return
+        }
+        db.collection("profiles").findOne({email:req.query.email}, function (err,result) {
+            if (result) {
+                result.title = "Edit Account"
+                res.render("pages/edit_account_admin.ejs",result);
+            } else {
+                res.redirect("/");
+            }
+        })
+    })
+})
+
+app.post("/editAccountAdminSubmit", function (req,res) {
+    query = {email:req.body.oldEmail}
+    console.log(req)
+    newVals = {$set:{
+        email:req.body.email,
+        password:req.body.password,
+        name:req.body.name,
+        dateOfBirth:req.body.dateOfBirth,
+        gender:req.body.gender,
+        emergencyContactName:req.body.emergencyContactName,
+        emergencyContactNumber:req.body.emergencyContactNumber,
+        postcode:req.body.postcode,
+        photoConsent: req.body.photoConsent
+    }}
+    db.collection("profiles").updateOne(query,newVals,function (err,result) {
+        if (err) throw err;
+        console.log("admin updated user details")
+    })
+    res.redirect("/navpage");
+})
+
 app.get("/editsession", function (req, res) {
     res.render('pages/edit_session', {title: 'Edit Session'});
 });
