@@ -291,11 +291,11 @@ app.get("/sessionparticipant", function (req, res) {
 
 // Admin session routes
 app.get("/sessionadmin", function (req, res) {
-    db.collection("sessions").find(function (err, result) {
-
-    });
-
-    res.render('pages/session_admin', {title: 'View Sessions'});
+    db.collection("sessions").find().toArray(function (err, result) {
+        if (err) throw err;
+        
+        res.render("pages/session_admin", {title: "View Sessions", sessions:result});
+    }); 
 });
 
 app.get("/createSession", function (req, res) {
@@ -317,21 +317,38 @@ app.post("/createSessionSubmit",function(req,res) {
     });
 });
 
-app.get("/editsession", function (req, res) {
-    res.render('pages/edit_session', {title: 'Edit Session'});
+app.get("/editSessionAdmin", function (req, res) {
+    if (!req.session.loggedin) {
+        res.redirect("/");
+        return;
+    };
+
+    
+});
+
+app.post("editSessionAdminSubmit", function(req, res) {
+    
 });
 
 // Routes for admin editting profiles accounts
+app.get("/viewprofiles", function (req, res) {
+    db.collection("profiles").find().toArray(function (err,result) {
+        if (err) throw err;
+        //console.log(result)
+        res.render('pages/view_profiles', {title: 'View Profiles',profiles:result});
+    });
+});
+
 app.get("/editAccountAdmin",function (req,res) {
     if (!req.session.loggedin) {
-        res.redirect("/")
-        return
+        res.redirect("/");
+        return;
     }
     db.collection("profiles").findOne({email:req.session.email},function(err,result) {
         if (err) throw err;
         if (!result.admin) {
-            res.redirect("/")
-            return
+            res.redirect("/");
+            return;
         }
         db.collection("profiles").findOne({email:req.query.email}, function (err,result) {
             if (result) {
@@ -376,13 +393,4 @@ app.post("/ed")
 // Nav page route
 app.get("/navPage", function (req, res) {
     res.render('pages/navigation_page', {title: 'Admin Navigation'});
-});
-
-app.get("/viewprofiles", function (req, res) {
-    db.collection("profiles").find().toArray(function (err,result) {
-        if (err) throw err;
-        console.log(result)
-        res.render('pages/view_profiles', {title: 'View Profiles',profiles:result});
-    })
-    
 });
