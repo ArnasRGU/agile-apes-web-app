@@ -187,7 +187,9 @@ app.post("/loginSubmit", function (req, res) {
 
         } else {
             // User is not an admin
-            res.render("pages/session_participant", {title: "Sessions"})
+            db.collection("sessions").find().toArray(function (err,result){
+                res.render('pages/session_participant', {title: 'View Sessions',sessions:result});
+            })
         };
         
     });
@@ -201,11 +203,6 @@ app.get("/getUser",function (req,res) {
         res.send(JSON.stringify(res2));
     })
 })
-
-// Participant session page route
-app.get("/participantSession", function (req, res) {
-    res.render('pages/session_participant', {title: 'View Sessions'});
-});
 
 // Participant edit account routes
 app.get("/editaccount", function (req, res) {
@@ -286,8 +283,22 @@ app.get("/getUser",function (req,res) {
 
 // Participant session page route
 app.get("/sessionparticipant", function (req, res) {
-    res.render('pages/session_participant', {title: 'View Sessions'});
+    db.collection("sessions").find().toArray(function (err,result){
+        if(err) throw err;
+        console.log(result)
+        res.render('pages/session_participant', {title: 'View Sessions',sessions:result});
+    })
 });
+
+app.get("/participantAttend", function(req,res){
+    app.post("participantAttendSubmit", function(req,res){})
+})
+
+app.post("/participantAttendSubmit", function(req,res){
+    db.collection("sessions").updateOne({
+        
+    })
+})
 
 // Admin session routes
 app.get("/sessionadmin", function (req, res) {
