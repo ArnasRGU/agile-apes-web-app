@@ -57,6 +57,9 @@ app.get("/createAccount", function (req, res) {
 });
 
 app.post("/createAccountSubmit", function (req, res) {
+    // Admin account email
+    var adminEmail = "admin@mail.com";
+
     // Receiving inputs from the form
     var email = req.body.email;
     var password = req.body.password;
@@ -96,19 +99,46 @@ app.post("/createAccountSubmit", function (req, res) {
         // Checking if the profile exists already
         if (!result) {
             // Adding the account to the database
-            db.collection('profiles').insertOne({
-                email: email,
-                password: password,
-                name: name,
-                dateOfBirth: dateOfBirth,
-                gender: gender,
-                emergencyContactName: emergencyContactName,
-                emergencyContactNumber: emergencyContactNumber,
-                postcode: postcode,
-                photoConsent: photoConsent
-            }, function (err2, result2) {
+            db.collection("profiles").countDocuments(function(err2, result2) {
                 // Handle error
                 if (err2) throw err2;
+
+                if (result2 == 0) {
+                    // Make the admin account
+                    db.collection('profiles').insertOne({
+                        email: email,
+                        password: password,
+                        name: name,
+                        dateOfBirth: dateOfBirth,
+                        gender: gender,
+                        emergencyContactName: emergencyContactName,
+                        emergencyContactNumber: emergencyContactNumber,
+                        postcode: postcode,
+                        photoConsent: photoConsent,
+                        admin: true
+                    }, function (err3, result3) {
+                        // Handle error
+                        if (err3) throw err3;
+                    });
+
+                } else {
+                    // Make a user account
+                    db.collection('profiles').insertOne({
+                        email: email,
+                        password: password,
+                        name: name,
+                        dateOfBirth: dateOfBirth,
+                        gender: gender,
+                        emergencyContactName: emergencyContactName,
+                        emergencyContactNumber: emergencyContactNumber,
+                        postcode: postcode,
+                        photoConsent: photoConsent,
+                        admin: false
+                    }, function (err3, result3) {
+                        // Handle error
+                        if (err3) throw err3;
+                    });
+                };
             });
 
             console.log("Added new user to the database...")
