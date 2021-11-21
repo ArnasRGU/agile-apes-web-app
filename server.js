@@ -327,7 +327,7 @@ app.get("/editAccountAdmin",function (req,res) {
         res.redirect("/")
         return
     }
-    db.collection("profiles").findOne({email:req.session.username},function(err,result) {
+    db.collection("profiles").findOne({email:req.session.email},function(err,result) {
         if (err) throw err;
         if (!result.admin) {
             res.redirect("/")
@@ -379,5 +379,10 @@ app.get("/navPage", function (req, res) {
 });
 
 app.get("/viewprofiles", function (req, res) {
-    res.render('pages/view_profiles', {title: 'View Profiles'});
+    db.collection("profiles").find().toArray(function (err,result) {
+        if (err) throw err;
+        console.log(result)
+        res.render('pages/view_profiles', {title: 'View Profiles',profiles:result});
+    })
+    
 });
