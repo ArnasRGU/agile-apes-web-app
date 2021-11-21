@@ -175,7 +175,7 @@ app.post("/loginSubmit", function (req, res) {
         // Check the password
         if (result.password == password) {
             req.session.loggedin = true;
-            req.session.username = email;
+            req.session.email = email;
         } else {
             res.redirect("/login");
         };
@@ -209,14 +209,17 @@ app.get("/participantSession", function (req, res) {
 
 // Participant edit account routes
 app.get("/editaccount", function (req, res) {
+    // Checking if they are logged in or not
     if (!req.session.loggedin) {
         res.redirect("/login");
         return;
+
     } else {
-        let query = {email:req.session.username};
+        // Getting logged in users email
+        let query = {email:req.session.email};
+
         db.collection("profiles").findOne(query,function (err,result) {
             if (err) throw err;
-            console.log(result);
             
             info = {
                 email:result.email,
@@ -239,9 +242,7 @@ app.get("/editaccount", function (req, res) {
 
 app.post("/editAccountSubmit", function(req, res) {
     
-    console.log(req.body);
-
-    let query = {email:req.session.username}
+    let query = {email:req.session.email}
     newVals = {$set:{}}
 
     if (req.body.email != "") newVals.$set.email = req.body.email
@@ -256,10 +257,21 @@ app.post("/editAccountSubmit", function(req, res) {
     db.collection("profiles").updateOne(query, newVals, function (err,res) {
         if (err) throw err;
 
-        console.log(req.session.username + " details have been updated");
-        req.session.username = req.body.email;
+        console.log(req.session.email + " details have been updated");
+        req.session.email = req.body.email;
     })
-    res.redirect("/sessionparticipant")
+
+    // Check if the user is an admin or not
+    db.collection("profiles").findOne(query,function (err,result) {
+        if (err) throw err;
+
+        // Redirect the user depending on wether they are an admin or not
+        if (result.admin) {
+            res.redirect('/navPage');
+        } else {
+            res.redirect("/sessionparticipant")
+        }; 
+    });
 });
 
 
@@ -283,22 +295,23 @@ app.get("/logout", function(req, res) {
     res.redirect("/login");
 });
 
-app.get("/createsession", function (req, res) {
+app.get("/createSession", function (req, res) {
     res.render('pages/create_session', {title: 'Create Session'});
 });
 
 app.post("/createSessionSubmit",function(req,res) {
+    // Creating a one off session
     db.collection('sessions').insertOne({
         name:req.body.name,
         details:req.body.details,
         location:req.body.location,
-        time:req.body.time,
-        date:req.body.date
+        startTime:req.body.startTime,
+        endTime:req.body.endTime,
+        day:req.body.day
     },function (err,result) {
         if (err) throw err;
-        res.redirect("/sessionadmin")
-    })
-
+        res.redirect("/sessionadmin");
+    });
 });
 
 app.get("/editAccountAdmin",function (req,res) {
@@ -348,7 +361,9 @@ app.get("/editsession", function (req, res) {
     res.render('pages/edit_session', {title: 'Edit Session'});
 });
 
-app.get("/navpage", function (req, res) {
+app.post("/ed")
+
+app.get("/navPage", function (req, res) {
     res.render('pages/navigation_page', {title: 'Admin Navigation'});
 });
 

@@ -13,23 +13,35 @@
             <form action="/createSessionSubmit" method="POST">
                 <p>
                     <label>Session Name</label><br>
-                    <input type="text" name="name" >
+                    <input type="text" name="name" required>
                 </p>
                 <p>
                     <label>Details</label><br>
-                    <textarea name="details"></textarea>
+                    <textarea name="details"></textarea required>
                 </p>
                 <p>
                     <label>Location</label><br>
-                    <input type="text" name="location">
+                    <input type="text" name="location" required>
                 </p>
                 <p>
-                    <label>Time</label><br>
-                    <input type="time" name="time">
+                    <label>Start Time</label><br>
+                    <input type="time" name="startTime" required>
                 </p>
                 <p>
-                    <label>Date</label><br>
-                    <input type="date" name="date">
+                    <label>End time</label><br>
+                    <input type="time" name="endTime" required>
+                </p>
+                <p>
+                    <label>Day</label><br>
+                    <select name="day" required>
+                        <option value="Monday">Monday</option>
+                        <option value="Tuesday">Tuesday</option>
+                        <option value="Wednesday">Wednesday</option>
+                        <option value="Thursday">Thursday</option>
+                        <option value="Friday">Friday</option>
+                        <option value="Saturday">Saturday</option>
+                        <option value="Sunday">Sunday</option>
+                    </select>
                 </p>
                 <input type="submit" value="Create Session">
             </form>
