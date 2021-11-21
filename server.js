@@ -176,11 +176,20 @@ app.post("/loginSubmit", function (req, res) {
         if (result.password == password) {
             req.session.loggedin = true;
             req.session.username = email;
-
-            res.redirect("/sessionparticipant");
         } else {
             res.redirect("/login");
         };
+
+        // Redirecting the user
+        if (result.admin) {
+            // User is an admin
+            res.render("pages/navigation_page", {title: "Navigation Page"})
+
+        } else {
+            // User is not an admin
+            res.render("pages/session_participant", {title: "Sessions"})
+        };
+        
     });
 });
 
