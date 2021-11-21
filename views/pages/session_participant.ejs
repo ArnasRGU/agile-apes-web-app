@@ -13,38 +13,15 @@
                 <a href="/editAccount"><button>Edit Account Details</button></a>
                 <a href="/logout"><Button>Logout</Button></a>
             </nav>
-            <section>
-                <h3>Session Name</h3>
-                <h5>xx:xx - xx:xx xx/xx/xxxx</h5>
-                <h5>Location: </h5>
-                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis dignissim ante sit amet magna vestibulum cursus. Aenean eu imperdiet lorem. Aenean eget nisi ac velit facilisis imperdiet. </p>
-                <button>Attend</button>
-            </section>
-            <section>
-                <h3>Session Name</h3>
-                <h5>xx:xx - xx:xx xx/xx/xxxx</h5>
-                <h5>Location: </h5>
-                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis dignissim ante sit amet magna vestibulum cursus. Aenean eu imperdiet lorem. Aenean eget nisi ac velit facilisis imperdiet. </p>
-                <button>Attend</button>
-            </section><section>
-                <h3>Session Name</h3>
-                <h5>xx:xx - xx:xx xx/xx/xxxx</h5>
-                <h5>Location: </h5>
-                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis dignissim ante sit amet magna vestibulum cursus. Aenean eu imperdiet lorem. Aenean eget nisi ac velit facilisis imperdiet. </p>
-                <button>Attend</button>
-            </section><section>
-                <h3>Session Name</h3>
-                <h5>xx:xx - xx:xx xx/xx/xxxx</h5>
-                <h5>Location: </h5>
-                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis dignissim ante sit amet magna vestibulum cursus. Aenean eu imperdiet lorem. Aenean eget nisi ac velit facilisis imperdiet. </p>
-                <button>Attend</button>
-            </section><section>
-                <h3>Session Name</h3>
-                <h5>xx:xx - xx:xx xx/xx/xxxx</h5>
-                <h5>Location: </h5>
-                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis dignissim ante sit amet magna vestibulum cursus. Aenean eu imperdiet lorem. Aenean eget nisi ac velit facilisis imperdiet. </p>
-                <button>Attend</button>
-            </section>
+            <% sessions.forEach(function(p){ %>
+                <section>
+                    <h3><%= p.name %></h3>
+                    <h5><%= p.day %> <%= p.startTime %> - <%= p.endTime %></h5>
+                    <h5><%= p.location %></h5>
+                    <p><%= p.details %></p>
+                    <a href="/participantAttend?name=<%= p.name %>"><button>Attend</button></a>
+                </section>
+            <% }) %>
         </main>
     </body>
 </html>
