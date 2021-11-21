@@ -289,10 +289,9 @@ app.get("/sessionparticipant", function (req, res) {
     res.render('pages/session_participant', {title: 'View Sessions'});
 });
 
-// Logout route
-app.get("/logout", function(req, res) {
-    req.session.loggedin = false;
-    res.redirect("/login");
+// Admin session routes
+app.get("/sessionadmin", function (req, res) {
+    res.render('pages/session_admin', {title: 'View Sessions'});
 });
 
 app.get("/createSession", function (req, res) {
@@ -361,14 +360,17 @@ app.get("/editsession", function (req, res) {
     res.render('pages/edit_session', {title: 'Edit Session'});
 });
 
-app.post("/ed")
-
-app.get("/navPage", function (req, res) {
-    res.render('pages/navigation_page', {title: 'Admin Navigation'});
+// Logout route
+app.get("/logout", function(req, res) {
+    req.session.loggedin = false;
+    res.redirect("/login");
 });
 
-app.get("/sessionadmin", function (req, res) {
-    res.render('pages/session_admin', {title: 'View Sessions'});
+app.post("/ed")
+
+// Nav page route
+app.get("/navPage", function (req, res) {
+    res.render('pages/navigation_page', {title: 'Admin Navigation'});
 });
 
 app.get("/viewprofiles", function (req, res) {
