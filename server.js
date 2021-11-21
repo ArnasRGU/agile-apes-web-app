@@ -175,7 +175,7 @@ app.post("/loginSubmit", function (req, res) {
         // Check the password
         if (result.password == password) {
             req.session.loggedin = true;
-            req.session.username = email;
+            req.session.email = email;
         } else {
             res.redirect("/login");
         };
@@ -213,7 +213,7 @@ app.get("/editaccount", function (req, res) {
         res.redirect("/login");
         return;
     } else {
-        let query = {email:req.session.username};
+        let query = {email:req.session.email};
         db.collection("profiles").findOne(query,function (err,result) {
             if (err) throw err;
             console.log(result);
@@ -241,7 +241,7 @@ app.post("/editAccountSubmit", function(req, res) {
     
     console.log(req.body);
 
-    let query = {email:req.session.username}
+    let query = {email:req.session.email}
     newVals = {$set:{}}
 
     if (req.body.email != "") newVals.$set.email = req.body.email
@@ -256,10 +256,22 @@ app.post("/editAccountSubmit", function(req, res) {
     db.collection("profiles").updateOne(query, newVals, function (err,res) {
         if (err) throw err;
 
-        console.log(req.session.username + " details have been updated");
-        req.session.username = req.body.email;
+        console.log(req.session.email + " details have been updated");
+        req.session.email = req.body.email;
     })
-    res.redirect("/sessionparticipant")
+
+    // Check if the user is an admin
+
+    db.collection("profiles").findOne(query,function (err,result) {
+        if (err) throw err;
+        console.log(req.session.email);
+
+        if (result.admin) {
+            res.render('pages/navigation_page', {title: 'Admin Navigation'});
+        } else {
+            res.redirect("/sessionparticipant")
+        }; 
+    });
 });
 
 
@@ -305,7 +317,7 @@ app.get("/editsession", function (req, res) {
     res.render('pages/edit_session', {title: 'Edit Session'});
 });
 
-app.get("/navpage", function (req, res) {
+app.get("/navPage", function (req, res) {
     res.render('pages/navigation_page', {title: 'Admin Navigation'});
 });
 
