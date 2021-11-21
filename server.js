@@ -291,6 +291,10 @@ app.get("/sessionparticipant", function (req, res) {
 
 // Admin session routes
 app.get("/sessionadmin", function (req, res) {
+    db.collection("sessions").find(function (err, result) {
+
+    });
+
     res.render('pages/session_admin', {title: 'View Sessions'});
 });
 
@@ -313,6 +317,11 @@ app.post("/createSessionSubmit",function(req,res) {
     });
 });
 
+app.get("/editsession", function (req, res) {
+    res.render('pages/edit_session', {title: 'Edit Session'});
+});
+
+// Routes for admin editting profiles accounts
 app.get("/editAccountAdmin",function (req,res) {
     if (!req.session.loggedin) {
         res.redirect("/")
@@ -355,10 +364,6 @@ app.post("/editAccountAdminSubmit", function (req,res) {
     })
     res.redirect("/navpage");
 })
-
-app.get("/editsession", function (req, res) {
-    res.render('pages/edit_session', {title: 'Edit Session'});
-});
 
 // Logout route
 app.get("/logout", function(req, res) {
