@@ -9,38 +9,14 @@
             <%- include('../partials/header') %>
         </header>
         <main>
-            <section>
-                <p><b>Name:</b> John Doe</p>
-                <p><b>Telephone:</b> 123456789</p>
-                <button>Edit Profile</button>
-            </section>
-            <section>
-                <p><b>Name:</b> John Doe</p>
-                <p><b>Telephone:</b> 123456789</p>
-                <button>Edit Profile</button>
-            </section>
-            <section>
-                <p><b>Name:</b> John Doe</p>
-                <p><b>Telephone:</b> 123456789</p>
-                <button>Edit Profile</button>
-            </section>
-            <section>
-                <p><b>Name:</b> John Doe</p>
-                <p><b>Telephone:</b> 123456789</p>
-                <button>Edit Profile</button>
-            </section><section>
-                <p><b>Name:</b> John Doe</p>
-                <p><b>Telephone:</b> 123456789</p>
-                <button>Edit Profile</button>
-            </section><section>
-                <p><b>Name:</b> John Doe</p>
-                <p><b>Telephone:</b> 123456789</p>
-                <button>Edit Profile</button>
-            </section><section>
-                <p><b>Name:</b> John Doe</p>
-                <p><b>Telephone:</b> 123456789</p>
-                <button>Edit Profile</button>
-            </section>
+            
+            <% profiles.forEach(function(p){ %>
+                <section>
+                    <p><b>Name:</b> <%= p.name %></p>
+                    <p><b>Telephone:</b><%= p.emergencyContactNumber %></p>
+                    <a href="/editAccountAdmin?email=<%= p.email %>"><button>Edit Profile</button></a>
+                </section>
+            <% }) %>
             
             
         </main>
