@@ -278,6 +278,20 @@ app.get("/createsession", function (req, res) {
     res.render('pages/create_session', {title: 'Create Session'});
 });
 
+app.post("/createSessionSubmit",function(req,res) {
+    db.collection('sessions').insertOne({
+        name:req.body.name,
+        details:req.body.details,
+        location:req.body.location,
+        time:req.body.time,
+        date:req.body.date
+    },function (err,result) {
+        if (err) throw err;
+        res.redirect("/sessionadmin")
+    })
+
+});
+
 app.get("/editsession", function (req, res) {
     res.render('pages/edit_session', {title: 'Edit Session'});
 });
