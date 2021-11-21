@@ -317,17 +317,21 @@ app.post("/createSessionSubmit",function(req,res) {
     });
 });
 
-app.get("/editSessionAdmin", function (req, res) {
-    if (!req.session.loggedin) {
-        res.redirect("/");
-        return;
-    };
-
-    
-});
-
 app.post("editSessionAdminSubmit", function(req, res) {
-    
+    query = {name:req.body.oldName}
+    newVals = {$set:{
+        name:req.body.name,
+        details:req.body.details,
+        location:req.body.location,
+        startTime:req.body.startTime,
+        endTime:req.body.endTime,
+        day:req.body.day
+    }}
+    db.collection("profiles").updateOne(query,newVals,function (err,result) {
+        if (err) throw err;
+        console.log("admin updated user details")
+    })
+    res.redirect("/navpage");
 });
 
 // Routes for admin editting profiles accounts
@@ -363,7 +367,7 @@ app.get("/editAccountAdmin",function (req,res) {
 
 app.post("/editAccountAdminSubmit", function (req,res) {
     query = {email:req.body.oldEmail}
-    console.log(req)
+    //console.log(req)
     newVals = {$set:{
         email:req.body.email,
         password:req.body.password,
