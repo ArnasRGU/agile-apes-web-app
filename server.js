@@ -311,6 +311,23 @@ app.get("/createSession", function (req, res) {
     res.render('pages/create_session', {title: 'Create Session'});
 });
 
+app.get("/viewSession", function (req,res) {
+    db.collection("sessions").findOne({name:req.query.name},function (err,result) {
+        if (err) throw err
+        if (result) {
+            res.render("pages/session_admin_view",{title:"View Session",session:result})
+        }
+    })
+})
+
+app.get("/clearParticipation",function(req,res) {
+    db.collection("sessions").updateOne({name:req.query.name},{$set:{participants:[]}},function (err,result) {
+        if (err) throw err
+
+    })
+    res.redirect("/sessionadmin")
+})
+
 app.post("/createSessionSubmit",function(req,res) {
     // Creating a one off session
     db.collection('sessions').insertOne({
@@ -319,7 +336,8 @@ app.post("/createSessionSubmit",function(req,res) {
         location:req.body.location,
         startTime:req.body.startTime,
         endTime:req.body.endTime,
-        day:req.body.day
+        day:req.body.day,
+        participants:[]
     },function (err,result) {
         if (err) throw err;
         res.render("pages/session_admin", {title: "View Sessions", sessions:result});

@@ -19,6 +19,8 @@
                     <h5><%= p.day %> <%= p.startTime %> - <%= p.endTime %></h5>
                     <p><%= p.details %></p>
                     <a href="/editSessionAdmin?name=<%= p.name %>"><button>Edit Session</button></a>
+                    <a href="/viewSession?name=<%= p.name %>"><button>View Session</button></a>
+                    <a href="/clearParticipation?name=<%= p.name %>"><button>Clear Participation</button></a>
                 </section>
             <% }) %>
         </main>
