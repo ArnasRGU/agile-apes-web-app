@@ -411,8 +411,6 @@ app.get("/logout", function(req, res) {
     res.redirect("/login");
 });
 
-app.post("/ed")
-
 // Nav page route
 app.get("/navPage", function (req, res) {
     res.render('pages/navigation_page', {title: 'Admin Navigation'});
