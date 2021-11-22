@@ -340,7 +340,7 @@ app.post("/createSessionSubmit",function(req,res) {
         participants:[]
     },function (err,result) {
         if (err) throw err;
-        res.render("pages/session_admin", {title: "View Sessions", sessions:result});
+        res.redirect("/navpage")
     });
 });
 
