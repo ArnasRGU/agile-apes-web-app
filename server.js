@@ -327,11 +327,15 @@ app.post("/createSessionSubmit",function(req,res) {
     res.render("pages/session_admin", {title: "View Sessions", sessions:result});
 });
 
-app.get("/editSessionAdmin"), function(req, res) {
-    
-};
+app.get("/editSessionAdmin", function(req, res) {
+    db.collection("sessions").findOne({name:req.query.name}, function(err, result) {
+        if (err) throw err;
+        console.log(result)
+        res.render("pages/edit_session", {title: "Edit Session", oldNameSession: req.query.name, session:result})
+    });
+});
 
-app.post("editSessionAdminSubmit", function(req, res) {
+app.post("/editSessionAdminSubmit", function(req, res) {
     query = {name:req.body.oldName}
     newVals = {$set:{
         name:req.body.name,
@@ -341,7 +345,8 @@ app.post("editSessionAdminSubmit", function(req, res) {
         endTime:req.body.endTime,
         day:req.body.day
     }}
-    db.collection("profiles").updateOne(query,newVals,function (err,result) {
+    console.log(query);
+    db.collection("sessions").updateOne(query,newVals,function (err,result) {
         if (err) throw err;
         console.log("admin updated user details")
     })

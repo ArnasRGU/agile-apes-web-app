@@ -13,11 +13,11 @@
             <form action="/editSessionAdminSubmit" method="POST">
                 <p>
                     <label>Old Session Name</label><br>
-                    <input type="text" name="oldName" required>
+                    <input type="text" name="oldName" value="<%= oldNameSession %>" readonly>
                 </p>
                 <p>
                     <label>Session Name</label><br>
-                    <input type="text" name="name" required>
+                    <input type="text" name="name" value="<%= session.name %>"required>
                 </p>
                 <p>
                     <label>Details</label><br>
@@ -25,15 +25,15 @@
                 </p>
                 <p>
                     <label>Location</label><br>
-                    <input type="text" name="location" required>
+                    <input type="text" name="location" value="<%= session.location %>" required>
                 </p>
                 <p>
                     <label>Start Time</label><br>
-                    <input type="time" name="startTime" required>
+                    <input type="time" name="startTime" value="<%= session.startTime %>" required>
                 </p>
                 <p>
                     <label>End time</label><br>
-                    <input type="time" name="endTime" required>
+                    <input type="time" name="endTime" value="<%= session.endTime %>" required>
                 </p>
                 <p>
                     <label>Day</label><br>
