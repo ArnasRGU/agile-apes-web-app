@@ -281,7 +281,7 @@ app.get("/getUser",function (req,res) {
     })
 })
 
-// Participant session page route
+// Participant session page routes
 app.get("/sessionparticipant", function (req, res) {
     db.collection("sessions").find().toArray(function (err,result){
         if(err) throw err;
@@ -291,11 +291,11 @@ app.get("/sessionparticipant", function (req, res) {
 });
 
 app.get("/participantAttend", function(req,res){
-    app.post("participantAttendSubmit", function(req,res){})
-})
+    db.collection("sessions").update(
+      { name:req.query.name}, { $push: { participants: req.session.email } }
+    );
 
-app.post("/participantAttendSubmit", function(req,res){
-    db.collection("sessions").updateOne({})
+    res.redirect("/sessionparticipant");
 })
 
 // Admin session routes
@@ -324,7 +324,6 @@ app.post("/createSessionSubmit",function(req,res) {
         if (err) throw err;
         res.render("pages/session_admin", {title: "View Sessions", sessions:result});
     });
-    res.render("pages/session_admin", {title: "View Sessions", sessions:result});
 });
 
 app.get("/editSessionAdmin", function(req, res) {
